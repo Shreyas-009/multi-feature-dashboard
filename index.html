@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <main>
+        <nav id="nav-bar">
+            <button id="back-btn">back</button>
+            <button id="theme-toggle"><img src="sun.svg" alt="Theme icon" width="18" height="18"></button>
+        </nav>
+        <section id="feature-section">
+            <div id="feature-cards">
+                <div class="feature-card">
+                    <div class="card-body">
+                        <img src="./totdo.png"
+                            alt="todo screen image">
+                    </div>
+                    <div class="card-footer">
+                        <h1>Todo List</h1>
+                        <p>you can create your daily list of task</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="card-body">
+                        <img src="https://files.muzli.cloud/771df1d611a041d5948f462352d9af6c_medium.jpeg?_cb=1781689846192"
+                            alt="">
+                    </div>
+                    <div class="card-footer">
+                        <h1>Todo List</h1>
+                        <p>you can create your daily list of task</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="card-body">
+                        <img src="https://files.muzli.cloud/771df1d611a041d5948f462352d9af6c_medium.jpeg?_cb=1781689846192"
+                            alt="">
+                    </div>
+                    <div class="card-footer">
+                        <h1>Todo List</h1>
+                        <p>you can create your daily list of task</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="card-body">
+                        <img src="https://files.muzli.cloud/771df1d611a041d5948f462352d9af6c_medium.jpeg?_cb=1781689846192"
+                            alt="">
+                    </div>
+                    <div class="card-footer">
+                        <h1>Todo List</h1>
+                        <p>you can create your daily list of task</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="sections" id="todo-section">
+            <div id="todo-container">
+                <div id="totdo-header">
+                    <div id="todo-inp">
+                        <input id="todo-input" placeholder="Enter your task" value="" type="text">
+                        <button id="add-todo" onclick="addTodo()">Add</button>
+                    </div>
+                </div>
+                <div id="todo-list">
+                    <p>please add task!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+<script src="./script.js"></script>
+
+</html>
