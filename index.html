@@ -16,6 +16,28 @@
         </button>
       </nav>
       <section id="feature-section">
+        <div id="dashboard-header">
+          <div id="datetime-container">
+            <h1 id="dashboard-time">00:00:00 AM</h1>
+            <p id="dashboard-date">Loading date...</p>
+            <p id="greeting-text">Welcome!</p>
+          </div>
+          <div id="weather-widget">
+            <div id="weather-loading">Loading weather...</div>
+            <div id="weather-content" class="hide">
+              <div id="weather-main">
+                <span id="weather-temp">--°C</span>
+                <span id="weather-desc">--</span>
+              </div>
+              <div id="weather-details">
+                <span id="weather-city">Your Location</span> | 
+                <span>Humidity: <span id="weather-humidity">--%</span></span> | 
+                <span>Wind: <span id="weather-wind">-- km/h</span></span>
+              </div>
+            </div>
+            <div id="weather-error" class="hide">Weather unavailable</div>
+          </div>
+        </div>
         <div id="feature-cards">
           <div
             class="feature-card"
@@ -46,28 +68,36 @@
               <p>Assign tasks or notes to hourly slots</p>
             </div>
           </div>
-          <div class="feature-card">
+          <div
+            class="feature-card"
+            id="quote-card"
+            onclick="openPage('quote-section')"
+          >
             <div class="card-body">
               <img
-                src="https://files.muzli.cloud/771df1d611a041d5948f462352d9af6c_medium.jpeg?_cb=1781689846192"
-                alt=""
+                src="./quote.png"
+                alt="time image"
               />
             </div>
             <div class="card-footer">
-              <h1>Todo List</h1>
-              <p>you can create your daily list of task</p>
+              <h1>Motivation Quote</h1>
+              <p>Get a daily dose of inspiration</p>
             </div>
           </div>
-          <div class="feature-card">
+          <div
+            class="feature-card"
+            id="pomodoro-card"
+            onclick="openPage('pomodoro-section')"
+          >
             <div class="card-body">
               <img
-                src="https://files.muzli.cloud/771df1d611a041d5948f462352d9af6c_medium.jpeg?_cb=1781689846192"
-                alt=""
+                src="./time.png"
+                alt="quote image"
               />
             </div>
             <div class="card-footer">
-              <h1>Todo List</h1>
-              <p>you can create your daily list of task</p>
+              <h1>Pomodoro Timer</h1>
+              <p>Boost your productivity with timed focus blocks</p>
             </div>
           </div>
         </div>
@@ -95,6 +125,28 @@
       <section class="sections" id="planner-section">
         <div id="planner-container">
           <div id="planer-list">
+          </div>
+        </div>
+      </section>
+
+      <section class="sections" id="quote-section">
+        <div id="quote-container">
+          <div id="quote-box">
+            <p id="quote-text">"Loading quote..."</p>
+            <p id="quote-author"></p>
+          </div>
+          <button id="new-quote-btn" onclick="fetchQuote()">New Quote</button>
+        </div>
+      </section>
+
+      <section class="sections" id="pomodoro-section">
+        <div id="pomodoro-container">
+          <h2 id="pomodoro-header">Work Session</h2>
+          <div id="pomodoro-timer">25:00</div>
+          <div id="pomodoro-controls">
+            <button id="pomodoro-start" onclick="startPomodoro()">Start</button>
+            <button id="pomodoro-pause" onclick="pausePomodoro()">Pause</button>
+            <button id="pomodoro-reset" onclick="resetPomodoro()">Reset</button>
           </div>
         </div>
       </section>

@@ -98,11 +98,87 @@ main {
   flex: 1;
   width: 100%;
   background-color: var(--base-color);
-  padding: 20px;
+  padding: 20px 40px;
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 24px;
+}
+
+#dashboard-header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  /* display: none; */
+  background-color: var(--secondary--base-color);
+  border: 1px solid var(--border-color);
+  padding: 20px 24px;
+  border-radius: 12px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+#datetime-container h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+#datetime-container p {
+  font-size: 16px;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+#greeting-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-top: 4px;
+}
+
+#weather-widget {
+  min-width: 200px;
+  text-align: right;
+  color: var(--text-color);
+}
+
+#weather-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+#weather-temp {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+#weather-desc {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+#weather-details {
+  font-size: 13px;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+@media (max-width: 600px) {
+  #dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  #weather-widget {
+    text-align: left;
+  }
+  #weather-main {
+    justify-content: flex-start;
+  }
 }
 
 #feature-cards {
@@ -382,5 +458,133 @@ main {
   cursor: pointer;
   &:hover {
     background-color: var(--secondary--base-color);
+  }
+}
+
+/* Motivation Quote */
+
+#quote-section {
+  flex: 1;
+  width: 100%;
+  background-color: var(--base-color);
+  padding: 20px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+#quote-container {
+  height: 85vh;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+#quote-box {
+  width: 100%;
+  background-color: var(--secondary--base-color);
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  border-radius: 12px;
+  text-align: center;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+#quote-text {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+#quote-author {
+  font-size: 16px;
+  font-style: italic;
+  color: var(--primary-color);
+}
+
+#new-quote-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  background: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  &:hover {
+    background: var(--primary-hover);
+  }
+}
+
+/* Timer */
+
+#pomodoro-section {
+  flex: 1;
+  width: 100%;
+  background-color: var(--base-color);
+  padding: 20px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+#pomodoro-container {
+  height: 85vh;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  padding: 20px;
+}
+
+#pomodoro-header {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+#pomodoro-timer {
+  font-size: 80px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+#pomodoro-controls {
+  display: flex;
+  gap: 12px;
+}
+
+#pomodoro-controls button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--secondary--base-color);
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  &:hover {
+    background: var(--border-color);
+  }
+}
+
+#pomodoro-controls #pomodoro-start {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  &:hover {
+    background: var(--primary-hover);
   }
 }

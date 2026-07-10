@@ -86,6 +86,7 @@ const toggleTheme = (isDark) => {
   document.body.classList.toggle("dark", isDark);
   themeImg.src = isDark ? "sun.svg" : "moon.svg";
   localStorage.setItem("theme", isDark ? "dark" : "light");
+  if (typeof updateBackground === "function") updateBackground();
 };
 toggleTheme(localStorage.getItem("theme") !== "light");
 themeToggle.onclick = () =>
@@ -146,3 +147,171 @@ function clearSlot(hour) {
 }
 
 renderplanerData();
+
+
+// Motivation Quote
+
+const quoteText = document.getElementById("quote-text");
+const quoteAuthor = document.getElementById("quote-author");
+const newQuoteBtn = document.getElementById("new-quote-btn");
+
+async function fetchQuote() {
+  newQuoteBtn.disabled = true;
+  quoteText.innerText = "Loading quote...";
+  quoteAuthor.innerText = "";
+  
+  try {
+    const res = await fetch("https://dummyjson.com/quotes/random");
+    if (!res.ok) throw new Error("API issue");
+    const data = await res.json();
+    quoteText.innerText = `"${data.quote}"`;
+    quoteAuthor.innerText = `- ${data.author}`;
+  } catch (error) {
+    quoteText.innerText = "Failed to load quote. Keep pushing, you're doing great!";
+    quoteAuthor.innerText = "";
+  } finally {
+    newQuoteBtn.disabled = false;
+  }
+}
+
+fetchQuote();
+
+
+// Pomodoro Timer
+
+const pomodoroTimer = document.getElementById("pomodoro-timer");
+
+let pomodoroInterval = null;
+let secondsLeft = 25 * 60;
+let isWorkSession = true;
+
+function updateTimerDisplay() {
+  const mins = Math.floor(secondsLeft / 60);
+  const secs = secondsLeft % 60;
+  pomodoroTimer.innerText = `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+}
+
+function startPomodoro() {
+  if (pomodoroInterval) return;
+  
+  pomodoroInterval = setInterval(() => {
+    secondsLeft--;
+    updateTimerDisplay();
+    
+    if (secondsLeft <= 0) {
+      clearInterval(pomodoroInterval);
+      pomodoroInterval = null;
+      
+      alert(isWorkSession ? "Work session completed" : "Break completed");
+      
+      isWorkSession = !isWorkSession;
+      secondsLeft = (isWorkSession ? 25 : 5) * 60;
+      updateTimerDisplay();
+    }
+  }, 1000);
+}
+
+function pausePomodoro() {
+  clearInterval(pomodoroInterval);
+  pomodoroInterval = null;
+}
+
+function resetPomodoro() {
+  clearInterval(pomodoroInterval);
+  pomodoroInterval = null;
+  isWorkSession = true;
+  secondsLeft = 25 * 60;
+  updateTimerDisplay();
+}
+
+updateTimerDisplay();
+
+// Date & Time
+
+function updateDateTime() {
+  const now = new Date();
+  document.getElementById("dashboard-time").innerText = now.toLocaleTimeString("en-US", { hour12: true });
+  document.getElementById("dashboard-date").innerText = now.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+}
+updateDateTime();
+setInterval(updateDateTime, 1000);
+
+
+// Background change
+
+function updateBackground() {
+  const hr = new Date().getHours();
+  const isDark = document.body.classList.contains("dark");
+  let bg = isDark ? "#080a0d" : "#f6eee9";
+  let greeting = "Good Night!";
+  
+  if (hr >= 5 && hr < 11) {
+    greeting = "Good Morning!";
+    bg = isDark ? "#15181e" : "#fff3ec";
+  } else if (hr >= 11 && hr < 17) {
+    greeting = "Good Afternoon!";
+    bg = isDark ? "#1b1817" : "#f5eae4";
+  } else if (hr >= 17 && hr < 21) {
+    greeting = "Good Evening!";
+    bg = isDark ? "#2a1d1c" : "#e8d9d3";
+  }
+  
+  const fs = document.getElementById("feature-section");
+  if (fs) fs.style.backgroundColor = bg;
+  const gt = document.getElementById("greeting-text");
+  if (gt) gt.innerText = greeting;
+}
+updateBackground();
+setInterval(updateBackground, 60000);
+
+
+// Weather 
+
+const weatherLoading = document.getElementById("weather-loading");
+const weatherContent = document.getElementById("weather-content");
+const weatherError = document.getElementById("weather-error");
+
+function getWeatherDesc(c) {
+  if (c === 0) return "Clear Sky";
+  if (c <= 3) return "Partly Cloudy";
+  if (c === 45 || c === 48) return "Foggy";
+  if (c >= 51 && c <= 55) return "Drizzle";
+  if (c >= 61 && c <= 65) return "Rainy";
+  if (c >= 71 && c <= 75) return "Snowy";
+  if (c >= 80 && c <= 82) return "Showers";
+  return "Thunderstorm";
+}
+
+async function fetchWeather(lat, lon, city) {
+  try {
+    if (!city) {
+      try {
+        const geo = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+        const geoData = await geo.json();
+        city = geoData.address.city || geoData.address.town || geoData.address.village || "Your Location";
+      } catch {
+        city = "Your Location";
+      }
+    }
+    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m`);
+    const data = await res.json();
+    const curr = data.current;
+    
+    document.getElementById("weather-temp").innerText = `${Math.round(curr.temperature_2m)}°C`;
+    document.getElementById("weather-desc").innerText = getWeatherDesc(curr.weather_code);
+    document.getElementById("weather-city").innerText = city;
+    document.getElementById("weather-humidity").innerText = `${curr.relative_humidity_2m}%`;
+    document.getElementById("weather-wind").innerText = `${curr.wind_speed_10m} km/h`;
+    
+    weatherLoading.classList.add("hide");
+    weatherContent.classList.remove("hide");
+  } catch {
+    weatherLoading.classList.add("hide");
+    weatherError.classList.remove("hide");
+  }
+}
+
+navigator.geolocation.getCurrentPosition(
+  (pos) => fetchWeather(pos.coords.latitude, pos.coords.longitude),
+  () => fetchWeather(28.6139, 77.2090, "Delhi")
+);
