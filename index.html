@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Day Tracker</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
 
@@ -18,21 +18,21 @@
       <section id="feature-section">
         <div id="dashboard-header">
           <div id="datetime-container">
-            <h1 id="dashboard-time">00:00:00 AM</h1>
-            <p id="dashboard-date">Loading date...</p>
-            <p id="greeting-text">Welcome!</p>
+            <h1 id="dashboard-time"></h1>
+            <p id="dashboard-date"></p>
+            <p id="greeting-text"></p>
           </div>
           <div id="weather-widget">
             <div id="weather-loading">Loading weather...</div>
             <div id="weather-content" class="hide">
               <div id="weather-main">
-                <span id="weather-temp">--°C</span>
-                <span id="weather-desc">--</span>
+                <span id="weather-temp"></span>
+                <span id="weather-desc"></span>
               </div>
               <div id="weather-details">
-                <span id="weather-city">Your Location</span> | 
-                <span>Humidity: <span id="weather-humidity">--%</span></span> | 
-                <span>Wind: <span id="weather-wind">-- km/h</span></span>
+                <span id="weather-city"></span> | 
+                <span>Humidity: <span id="weather-humidity"></span></span> | 
+                <span>Wind: <span id="weather-wind"></span></span>
               </div>
             </div>
             <div id="weather-error" class="hide">Weather unavailable</div>
@@ -100,6 +100,22 @@
               <p>Boost your productivity with timed focus blocks</p>
             </div>
           </div>
+          <div
+            class="feature-card"
+            id="goals-card"
+            onclick="openPage('goals-section')"
+          >
+            <div class="card-body">
+              <img
+                src="./gole.png"
+                alt="goals image"
+              />
+            </div>
+            <div class="card-footer">
+              <h1>Daily Goals</h1>
+              <p>Track your daily progress and complete goals</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -147,6 +163,20 @@
             <button id="pomodoro-start" onclick="startPomodoro()">Start</button>
             <button id="pomodoro-pause" onclick="pausePomodoro()">Pause</button>
             <button id="pomodoro-reset" onclick="resetPomodoro()">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="sections" id="goals-section">
+        <div id="goals-container">
+          <h2 id="goals-progress">0 of 0 completed</h2>
+          <div id="goals-header">
+            <div id="goals-inp">
+              <input id="goals-input" placeholder="Enter a daily goal" type="text" />
+              <button id="add-goal-btn" onclick="addGoal()">Add</button>
+            </div>
+          </div>
+          <div id="goals-list">
           </div>
         </div>
       </section>

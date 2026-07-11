@@ -190,7 +190,6 @@ main {
 
 .feature-card {
   flex: 1;
-  height: 100%;
   min-width: 250px;
   width: 100%;
   cursor: pointer;
@@ -587,4 +586,165 @@ main {
   &:hover {
     background: var(--primary-hover);
   }
+}
+
+
+
+@media (max-width: 480px) {
+  .sections,
+  #feature-section {
+    padding: 20px;
+  }
+
+  #planer-list{
+    padding: 7px;
+    gap: 7px;
+  }
+}
+
+/* Daily Goals CSS */
+#goals-section {
+  flex: 1;
+  width: 100%;
+  background-color: var(--base-color);
+  padding: 20px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+#goals-container {
+  height: 85vh;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+#goals-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#goals-progress {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-align: center;
+}
+
+#goals-inp {
+  display: flex;
+  border-radius: 12px;
+  background-color: var(--secondary--base-color);
+  border: 1px solid var(--border-color);
+  padding: 8px;
+  width: 100%;
+  gap: 8px;
+  height: 56px;
+}
+
+#goals-inp input {
+  flex: 1;
+  background: var(--base-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  border-radius: 8px;
+  height: 100%;
+  outline: none;
+  padding: 10px;
+  font-size: 16px;
+}
+
+#add-goal-btn {
+  width: fit-content;
+  height: 100%;
+  padding: 0 20px;
+  border-radius: 8px;
+  border: none;
+  background: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  &:hover {
+    background: var(--primary-hover);
+  }
+}
+
+#goals-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--secondary--base-color);
+  border: 1px solid var(--border-color);
+  padding: 16px;
+  border-radius: 12px;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.goal-card {
+  width: 100%;
+  height: fit-content;
+  padding: 12px 16px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--base-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  display: flex;
+  gap: 12px;
+}
+
+.goal-content {
+  font-size: 16px;
+  color: var(--text-color);
+  word-break: break-word;
+}
+
+.goal-content.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.goal-card-l {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.goal-card-l button {
+  padding: 6px 12px;
+  height: 32px;
+  border-radius: 6px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.goal-card-l button.btn-delete-goal {
+  background-color: #ef4444;
+}
+
+.goal-card-l button.btn-complete-goal {
+  background-color: var(--secondary--base-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  &:hover {
+    background-color: var(--border-color);
+  }
+}
+
+.goal-card-l button.btn-complete-goal.active {
+  background-color: #22c55e;
+  border-color: #22c55e;
+  color: white;
 }

@@ -230,8 +230,8 @@ updateTimerDisplay();
 
 function updateDateTime() {
   const now = new Date();
-  document.getElementById("dashboard-time").innerText = now.toLocaleTimeString("en-US", { hour12: true });
-  document.getElementById("dashboard-date").innerText = now.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+  document.getElementById("dashboard-time").textContent = now.toLocaleTimeString();
+  document.getElementById("dashboard-date").textContent = now.toLocaleDateString();
 }
 updateDateTime();
 setInterval(updateDateTime, 1000);
@@ -315,3 +315,66 @@ navigator.geolocation.getCurrentPosition(
   (pos) => fetchWeather(pos.coords.latitude, pos.coords.longitude),
   () => fetchWeather(28.6139, 77.2090, "Delhi")
 );
+
+
+// Daily Goals
+
+const goalsContainer = document.getElementById("goals-list");
+const goalsInp = document.getElementById("goals-input");
+const goalsProgress = document.getElementById("goals-progress");
+let goalsList = JSON.parse(localStorage.getItem("goalsList")) || [];
+
+function addGoal() {
+  if (!goalsInp.value.trim()) return;
+  goalsList.push({
+    content: goalsInp.value,
+    complete: false
+  });
+  goalsInp.value = "";
+  updateGoals();
+}
+
+function deleteGoal(id) {
+  goalsList.splice(id, 1);
+  updateGoals();
+}
+
+function completeGoal(id) {
+  goalsList[id].complete = !goalsList[id].complete;
+  updateGoals();
+}
+
+function updateGoals() {
+  localStorage.setItem("goalsList", JSON.stringify(goalsList));
+  
+  const total = goalsList.length;
+  const completed = goalsList.filter(g => g.complete).length;
+  goalsProgress.innerText = `${completed} of ${total} completed`;
+  
+  let ui = total ? "" : "<p>please add a goal!</p>";
+  goalsList.forEach((goal, index) => {
+    ui += `
+      <div class="goal-card">
+        <div class="goal-card-r">
+          <p class="goal-content ${goal.complete ? "completed" : ""}">${goal.content}</p>
+        </div>
+        <div class="goal-card-l">
+          <button class="btn-delete-goal" data-action="delete-goal" data-index="${index}">D</button>
+          <button class="btn-complete-goal ${goal.complete ? "active" : ""}" data-action="complete-goal" data-index="${index}">C</button>
+        </div>
+      </div>
+    `;
+  });
+  goalsContainer.innerHTML = ui;
+}
+
+goalsContainer.addEventListener("click", (e) => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+  const action = btn.dataset.action;
+  const index = parseInt(btn.dataset.index);
+  if (action === "delete-goal") deleteGoal(index);
+  if (action === "complete-goal") completeGoal(index);
+});
+
+updateGoals();
